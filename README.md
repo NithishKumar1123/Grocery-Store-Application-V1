@@ -53,9 +53,9 @@ quantity - integer, not null.
 
 categoryid - foreign key for categoryid of Category table, not null.
 
-### cart - relationship with Cart table. Easy access to the cart data of the product.
+cart - relationship with Cart table. Easy access to the cart data of the product.
 
-The Cart table contains the following attributes:
+### The Cart table contains the following attributes:
 
 cartid - integer, auto increment, primary key.
 
