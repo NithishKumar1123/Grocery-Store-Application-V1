@@ -73,5 +73,14 @@ The project exhibits a well-defined organisational structure. This includes Groc
 
 The project is implemented with comprehensive features, catering to both user and administrative needs. A dedicated login page enables seamless access for registered users, while a separate register page allows new users to join. The user-friendly interface permits customers to effortlessly browse products organised into categories or utilise a robust search function to find specific items. Detailed product pages display vital information, such as prices and availability, and allow users to efficiently add items to their cart. The shopping cart provides an extensive overview of selected products, including the total amount, fostering informed purchasing decisions. Purchased products are conveniently displayed within each user's profile. On the administrative side, the project offers valuable insights through visual representations of categories, products, unavailable stock, top-selling items, and website statistics. Additionally, admins can efficiently manage inventory by adding, updating, and deleting categories and products as needed.
 
+## Commands
+
+The following are the terminal commands to run the Grocery Store Application: 
+
+	cd Documents/'Capstone Project'/Code/
+	sh local_setup.sh
+	cd Documents/'Capstone Project'/Code/
+	sh local_run.sh
+ 
 ## Video
-https://drive.google.com/file/d/1UcHfq-8ls2To6K2xxre-tTkliMQBWBR6/view?usp=sharing
+    https://drive.google.com/file/d/1UcHfq-8ls2To6K2xxre-tTkliMQBWBR6/view?usp=sharing
