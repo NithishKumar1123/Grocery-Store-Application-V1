@@ -1,4 +1,4 @@
-# Grocery Store Application V1.0
+# Grocery Store Application V1
 ## Description
 The objective of the Modern Application Development - I project is to develop a robust and user-friendly online grocery shopping platform that enables users to search and purchase groceries categorised for easy navigation providing a seamless and convenient way to shop for groceries online.
 ## Technologies used
