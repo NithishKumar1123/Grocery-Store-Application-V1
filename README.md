@@ -81,6 +81,10 @@ The following are the terminal commands to run the Grocery Store Application:
 	sh local_setup.sh
 	cd Documents/'Capstone Project'/Code/
 	sh local_run.sh
+
+## Admin Credentials
+	Admin
+	Nithish@1123
  
 ## Video
     https://drive.google.com/file/d/1UcHfq-8ls2To6K2xxre-tTkliMQBWBR6/view?usp=sharing
