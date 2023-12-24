@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}FoodFetch - Home{% endblock %}
+
+{% block body %}
+<div class = "d-flex text-center align-middle justify-content-center">
+    <div class = "card" style = "width: 20rem">
+        <img src = "{{ url_for('static', filename = 'user.png') }}">
+        <div class = "card-body">
+            <p class = "card-title h1">Are you a Customer?</p>
+            <p class = "card-text">If you are a customer and here to fetch your groceries. Login or Register to start right away</p>
+            <a href = "/login" class = "btn btn-outline-primary">USER PLATFORM</a>
+        </div>
+    </div>
+    <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
+    <div class = "card" style = "width: 20rem">
+        <img src = "{{ url_for('static', filename = 'admin.png') }}">
+        <div class = "card-body">
+            <p class = "card-title h1">Are you a Shop Manager?</p>
+            <p class = "card-text">If you are a shop manager and looking to expand your business. Login or Contact us to start right away.</p>
+            <a href = "/admin_login" class = "btn btn-outline-primary">ADMIN PLATFORM</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

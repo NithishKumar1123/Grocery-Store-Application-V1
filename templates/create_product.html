@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}FoodFetch - Products{% endblock %}
+
+{% block name %}
+<h2>Welcome {{ user.username }}!!!</h2>
+{% endblock %}
+
+{% block search %}
+<input class = "form-control" id = "search" type = "search" size = "15" placeholder = "Search by Product" value = "{{ search }}" required>
+{% endblock %}
+
+{% block button %}
+<button class = "btn btn-outline-light" onclick = "tosearch(0)" type = "submit">Submit</button>
+{% endblock %}
+
+{% block n1 %}
+{% if user.isadmin == 1 %}
+    <a class = "btn btn-outline-light" href = "/admin_dashboard/{{ user.userid }}">Dashboard</a>
+{% else %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/read_product">Home</a>
+{% endif %}
+{% endblock %}
+
+{% block n2 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/category">Category</a>
+{% endblock %}
+
+{% block n3 %}
+{% if user.isadmin == 0 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/cart">Cart</a>
+{% else %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/read_product">Products</a>
+{% endif %}
+{% endblock %}
+
+{% block n4 %}
+{% if user.isadmin == 0 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/profile">Profile</a>
+{% endif %}
+{% endblock %}
+
+{% block l %}
+<a class = "btn btn-danger" href = "/logout">Logout</a>
+{% endblock %}
+
+{% block body %}
+<div class = "d-flex align-items-center justify-content-center" style = "height: 720px;">
+    <div class = "card" style = "width: 25rem">
+        <div class = "card-header h2 text-center">NEW PRODUCT</div>
+        <div class = "card-body"><br>
+            <form method = "POST">
+                <label class = "h3" for = "productname">Product Name</label>
+                <div class = "input-group">
+                    <div class = "input-group-prepend">
+                        <span class = "input-group-text">+</span>
+                    </div>
+                    <input type = "text" class = "form-control" name = "productname" placeholder = "Enter Product Name" required/>
+                </div><br>
+                <label class = "h3" for ="price">Price</label></td>
+                <div class = "input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">+</span>
+                    </div>
+                    <input type = "number" class = "form-control" name = "price" placeholder = "Enter Product Price" required/>
+                </div><br>
+                <label class = "h3" for ="unit">Unit</label></td>
+                <div class = "input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">+</span>
+                    </div>
+                    <select class = "form-select" name = "unit">
+                        <option selected>Select an Unit</option>
+                        <option value = "Kgs">Kilograms</option>
+                        <option value = "Nos">Numbers</option>
+                        <option value = "Ltrs">Litres</option>
+                        <option value = "">Null</option>
+                    </select>
+                </div><br>
+                <label class = "h3" for ="quantity">Quantity</label></td>
+                <div class = "input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">+</span>
+                    </div>
+                    <input type = "text" class = "form-control" name = "quantity" placeholder = "Enter Product Quantity" required/>
+                </div><br>
+                <label class = "h3" for ="category">Category</label></td>
+                <div class = "input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">+</span>
+                    </div>
+                        <select class = "form-select" name = "category">
+                            <option selected>Select a Category</option>
+                            {% if category %}
+                            {% for cat in category %}
+                                <option value = "{{ cat.categoryname }}">{{ cat.categoryname }}</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+                </div><br>
+                <div class = "text-center">
+                    <button type = "submit" class = "btn btn-outline-success">Create</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class = "btn btn-outline-dark" href = "/{{ user.userid }}/read_product">Go back</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}FoodFetch :: Category{% endblock %}
+
+{% block name %}
+<h2>Welcome {{ user.username }}!!!</h2>
+{% endblock %}
+
+{% block search %}
+<input class = "form-control" id = "search" type = "search" size = "16" placeholder = "Search by Category" value = "{{ search }}" required>
+{% endblock %}
+
+{% block button %}
+<button class = "btn btn-outline-light" onclick = "tosearch(1)" type = "submit">Submit</button>
+{% endblock %}
+
+{% block n1 %}
+{% if user.isadmin == 1 %}
+    <a class = "btn btn-outline-light" href = "/admin_dashboard/{{ user.userid }}">Dashboard</a>
+{% else %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/read_product">Home</a>
+{% endif %}
+{% endblock %}
+
+{% block n2 %}
+{% if user.isadmin == 1 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/read_product">Products</a>
+{% endif %}
+{% endblock %}
+
+{% block n3 %}
+{% if user.isadmin == 0 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/cart">Cart</a>
+{% endif %}
+{% endblock %}
+
+{% block n4 %}
+{% if user.isadmin == 0 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/profile">Profile</a>
+{% endif %}
+{% endblock %}
+
+{% block l %}
+<a class = "btn btn-danger" href = "/logout">Logout</a>
+{% endblock %}
+
+{% block body %}
+{% if category %}
+<div class = "p-4">
+    <div class = "p-4" style = "border-style: solid; border-width: 3px;">
+<p class = "text-primary h1">CATEGORY</p>
+{% if user.isadmin == 1 %}
+<div class = "p-4">
+<a class = "btn btn-outline-warning" href = "/{{ user.userid }}/create_category">New Category</a>
+</div>
+{% else %}
+<br>
+{% endif %}
+{% if category %}
+    <table>
+    {% for cat in category %}
+    <tr>
+        <td><a class = "h4" style = "text-decoration: none;" href = "/{{ user.userid }}/category/{{ cat.categoryid }}/product">{{ cat.categoryname }}</a></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class = "btn btn-outline-primary" href = "/{{ user.userid }}/category/{{ cat.categoryid }}/product">View More</a></td>
+        {% if user.isadmin == 1 %}
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class = "btn btn-outline-dark" href = "/{{ user.userid }}/update_category/{{ cat.categoryid }}">Update</a><br></td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class = "btn btn-outline-danger" href = "/{{ user.userid }}/delete_category/{{ cat.categoryid }}">Delete</a><br></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+    </div>
+</div>
+{% else %}
+<div class = "p-4">
+    <p class = "h1 text-primary">No Matching Category 😁</p>
+</div>
+{% endif %}
+{% endblock %}

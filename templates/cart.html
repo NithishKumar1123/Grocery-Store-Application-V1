@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}FoodFetch :: Cart{% endblock %}
+
+{% block name %}
+<h2>Welcome {{ user.username }}!!!</h2>
+{% endblock %}
+
+{% block search %}
+<input class = "form-control" id = "search" type = "search" size = "15" placeholder = "Search by Product" value = "{{ search }}" required>
+{% endblock %}
+
+{% block button %}
+<button class = "btn btn-outline-light" onclick = "tosearch(0)" type = "submit">Submit</button>
+{% endblock %}
+
+{% block n1 %}
+<a class = "btn btn-outline-light" href = "/{{ user.userid }}/read_product">Home</a>
+{% endblock %}
+
+{% block n2 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/category">Category</a>
+{% endblock %}
+
+{% block n4 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/profile">Profile</a>
+{% endblock %}
+
+{% block l %}
+<a class = "btn btn-danger" href = "/logout">Logout</a>
+{% endblock %}
+
+{% block body %}
+{% if cart %}
+<div class = "p-4">
+    {% for car in cart %}
+    <div class = "p-4" style = "border-style: solid; border-width: 3px;">
+        <a class = "text-primary h1" style = "text-decoration: none;" href = "/{{ user.userid }}/product/{{ car.product_.productid }}">{{ car.product_.productname | upper }}</a><br>
+        <a class = "text-muted" href = "/{{ user.userid }}/category/{{ car.product_.categoryid }}/product">{{ car.product_.category_.categoryname }}</a><br><br>
+        {% if car.product_.quantity > 0 %}
+        <p><b>Quantity:</b> {{ car.quantity }} {{ car.product_.unit }}.</p>
+        {% else %}
+        <p class = "card-text text-danger"><strong>Out of Stock</strong></p>
+        {% endif %}
+        <p><b>Price:</b> {{ car.product_.price }} / {{ car.product_.unit }}</p>
+        <p><b>Total Price:</b> {{ car.product_.price * car.quantity }}</p>
+        <a class = "btn btn-outline-dark" href = "/{{ user.userid }}/update_cart/{{ car.product_.productid }}">Update</a>&nbsp;&nbsp;&nbsp;
+        <a class = "btn btn-outline-danger" href = "/{{ user.userid }}/delete_cart/{{ car.cartid }}">Delete</a>&nbsp;&nbsp;&nbsp;
+        {% if car.product_.quantity > 0 %}
+        <a class = "btn btn-outline-success" href = "/{{ user.userid }}/purchase/{{ car.cartid }}">Buy</a>
+        {% endif %}
+    </div><br>
+    {% endfor %}
+</div>
+{% else %}
+<div class = "p-4">
+    <p class = "h1 text-primary">Please add an item in cart to show here. 😁</p>
+</div>
+{% endif %}
+<nav class="navbar navbar-expand-lg bg-primary text-light bg-gradient p-2 fixed-bottom">
+    <div class = "navbar-brand text-light">
+        <p class = "h2" style = "position: relative; left: 150px">&nbsp;Grand Total: &nbsp;&nbsp;&nbsp;&nbsp;{{ total }}</p>
+    </div>
+    <div class = "collapse navbar-collapse">
+        <ul class = "navbar-nav mr-auto">
+            <li class = "nav-item">
+                <a class = "btn btn-success" style = "border: solid; position: relative; left: 450px" href = "/{{ user.userid }}/buyall">Buy All</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}FoodFetch - Cart{% endblock %}
+
+{% block name %}
+<h2>Welcome {{ user.username }}!!!</h2>
+{% endblock %}
+
+{% block search %}
+<input class = "form-control" id = "search" type = "search" size = "15" placeholder = "Search by Product" value = "{{ search }}" required>
+{% endblock %}
+
+{% block button %}
+<button class = "btn btn-outline-light" onclick = "tosearch(0)" type = "submit">Submit</button>
+{% endblock %}
+
+{% block n1 %}
+{% if user.isadmin == 1 %}
+    <a class = "btn btn-outline-light" href = "/admin_dashboard/{{ user.userid }}">Dashboard</a>
+{% else %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/read_product">Home</a>
+{% endif %}
+{% endblock %}
+
+{% block n2 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/category">Category</a>
+{% endblock %}
+
+{% block n3 %}
+{% if user.isadmin == 0 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/cart">Cart</a>
+{% endif %}
+{% endblock %}
+
+{% block n4 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/profile">Profile</a>
+{% endblock %}
+
+{% block l %}
+<a class = "btn btn-danger" href = "/logout">Logout</a>
+{% endblock %}
+
+{% block body %}
+{% if cart %}
+    <div class = "d-flex justify-content-center p-5">
+    <div class = "card text-center" style = "border-style: solid; border-width: 3px; width: 30rem;">
+        <div class = "card-body p-4">
+            <p class = "card-title h1 text-primary">{{ cart.product_.productname }}</p>
+            <a class = "card-subtitle mb-2 text-muted" href = "/{{user.userid}}/category/{{ cart.product_.categoryid }}/product">{{ cart.product_.category_.categoryname }}</a><br><br>
+            <p class = "card-text"><b>Price</b> - {{ cart.product_.price }} / {{ cart.product_.unit }}</p>
+            <p class = "card-text">Only <b>{{ cart.product_.quantity }}</b> {{ cart.product_.unit }} left</p>
+            {% if user.isadmin == 1 %}
+                <a class = "btn btn-outline-dark" href = "/{{ user.userid }}/update_product/{{ cart.product_.productid }}">Update</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class = "btn btn-outline-danger" href = "/{{ user.userid }}/delete_product/{{ cart.product_.productid }}">Delete</a><br>
+            {% else %}
+                    <form method = "post">
+                        <input class = "form-control" size = "1" type = "text" name = "quantity" value = "{{ cart.quantity }}" placeholder = "Enter the quantity" required><br>
+                        <input class = "btn btn-outline-success" type = "submit" value = "Update to Cart">
+                    </form>
+            {% endif %}<br>
+            <a class = "btn btn-outline-primary" href = "/{{user.userid}}/category/{{ cart.product_.categoryid }}/product">{{ cart.product_.category_.categoryname }}</a><br><br>
+            <a class = "btn btn-outline-secondary" href = "/{{ user.userid }}/read_product">Go Home</a>
+        </div>
+    </div>
+    </div>
+{% endif %}
+{% endblock %}

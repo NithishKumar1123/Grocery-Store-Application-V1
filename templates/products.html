@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}FoodFetch :: Products{% endblock %}
+
+{% block name %}
+<h2>Welcome {{ user.username }}!!!</h2>
+{% endblock %}
+
+{% block search %}
+<input class = "form-control" id = "search" type = "search" size = "15" placeholder = "Search by Product" value = "{{ search }}" required>
+{% endblock %}
+
+{% block button %}
+<button class = "btn btn-outline-light" onclick = "tosearch(0)" type = "submit">Submit</button>
+{% endblock %}
+
+{% block n1 %}
+{% if user.isadmin == 1 %}
+    <a class = "btn btn-outline-light" href = "/admin_dashboard/{{ user.userid }}">Dashboard</a>
+{% else %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/read_product">Home</a>
+{% endif %}
+{% endblock %}
+
+{% block n2 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/category">Category</a>
+{% endblock %}
+
+{% block n3 %}
+{% if user.isadmin == 0 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/cart">Cart</a>
+{% else %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/read_product">Products</a>
+{% endif %}
+{% endblock %}
+
+{% block n4 %}
+{% if user.isadmin == 0 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/profile">Profile</a>
+{% endif %}
+{% endblock %}
+
+{% block l %}
+<a class = "btn btn-danger" href = "/logout">Logout</a>
+{% endblock %}
+
+{% block body %}
+<div class = "p-4">
+{% if category %}
+<div class = "p-4" style = "border-style: solid; border-width: 3px;">
+<p class = "h1 text-primary">{{ category.categoryname | upper }}</p>
+{% if user.isadmin == 1 %}
+<div class = "p-4">
+<a class = "btn btn-outline-warning" href = "/{{ user.userid}}/create_product">New Product</a><br>
+</div>
+{% else %}
+<br>
+{% endif %}
+<table>
+    {% for pro in category.products %}
+    <tr>
+        <td><a class = "h4" style = "text-decoration: none;" href = "/{{ user.userid }}/product/{{ pro.productid }}">{{ pro.productname }}</a></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class = "btn btn-outline-primary" href = "/{{ user.userid }}/product/{{ pro.productid }}">View More</a></td>
+        {% if user.isadmin == 1 %}
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class = "btn btn-outline-dark" href = "/{{ user.userid }}/update_product/{{ pro.productid }}">Update</a></td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class = "btn btn-outline-danger" href = "/{{ user.userid }}/delete_product/{{ pro.productid }}">Delete</a></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{% else %}
+<p class = "h1 text-primary">Please hang on, we are setting everything up for you. 😁</p>
+{% endif %}
+</div>
+{% endblock %}

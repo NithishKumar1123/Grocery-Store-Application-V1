@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}FoodFetch :: Products{% endblock %}
+
+{% block name %}
+<h2>Welcome {{ user.username }}!!!</h2>
+{% endblock %}
+
+{% block search %}
+<input class = "form-control" id = "search" type = "search" size = "15" placeholder = "Search by Product" value = "{{ search }}" required>
+{% endblock %}
+
+{% block button %}
+<button class = "btn btn-outline-light" onclick = "tosearch(0)" type = "submit">Submit</button>
+{% endblock %}
+
+{% block n1 %}
+{% if user.isadmin == 1 %}
+    <a class = "btn btn-outline-light" href = "/admin_dashboard/{{ user.userid }}">Dashboard</a>
+{% endif %}
+{% endblock %}
+
+{% block n2 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/category">Category</a>
+{% endblock %}
+
+{% block n3 %}
+{% if user.isadmin == 0 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/cart">Cart</a>
+{% endif %}
+{% endblock %}
+
+{% block n4 %}
+{% if user.isadmin == 0 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/profile">Profile</a>
+{% endif %}
+{% endblock %}
+
+{% block l %}
+<a class = "btn btn-danger" href = "/logout">Logout</a>
+{% endblock %}
+
+{% block body %}
+<div class = "p-4">
+{% if category %}
+    {% for cat in category %}
+        {% if cat.products %}
+        <div class = "p-4" style = "border-style: solid; border-width: 3px;">
+            <div class = "row">
+        <a class = "h1 text-primary" style = "text-decoration: none;" href = "/{{user.userid}}/category/{{ cat.categoryid }}/product">{{ cat.categoryname | upper }}</a>
+            {% for pro in cat.products %}
+                <div class = "col-4 p-4">
+                <div class = "card" style = "border-style: solid; border-width: 3px; width: 18rem;">
+                    <div class = "card-body p-4">
+                        <center>
+                        <a class = "card-title h5" style = "text-decoration: none" href = "/{{ user.userid }}/product/{{ pro.productid }}">{{ pro.productname }}</a><br>
+                        <a class = "card-subtitle mb-2 text-muted" href = "/{{user.userid}}/category/{{ pro.category_.categoryid }}/product">{{ cat.categoryname }}</a><br><br>
+                        <p class = "card-text"><b>Price</b> - {{ pro.price }} / {{ pro.unit }}</p>
+                        {% if pro.quantity == 0 %}
+                            <p class = "card-text text-danger"><strong>Out of Stock</strong></p>
+                        {% else %}
+                            <p class = "card-text">Only <b>{{ pro.quantity }}</b> {{ pro.unit }} left</p><br>
+                        {% endif %}
+                        <a class = "card-link btn btn-outline-primary" href = "/{{ user.userid }}/product/{{ pro.productid }}">View More</a>
+                        </center>
+                    </div>
+                </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        <br>
+        {% endif %}
+    {% endfor %}
+{% else %}
+{% if user.isadmin == 1 %}
+<div class = "p-4" style = "border-style: solid; border-width: 3px;">
+<p class = "text-primary h1">PRODUCT</p>
+<div class = "p-4">
+    <a class = "btn btn-outline-warning" href = "/{{ user.userid }}/create_product">Add the First Product</a>
+</div>
+</div>
+{% else %}
+<p class = "h1 text-primary">Please hang on, we are setting everything up for you. 😁</p>
+{% endif %}
+{% endif %}
+</div>
+{% endblock %}

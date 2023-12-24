@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}FoodFetch :: Search{% endblock %}
+
+{% block name %}
+<h2>Welcome {{ user.username }}!!!</h2>
+{% endblock %}
+
+{% block search %}
+<input class = "form-control" id = "search" type = "search" size = "15" placeholder = "Search by Product" value = "{{ search }}" required>
+{% endblock %}
+
+{% block button %}
+<button class = "btn btn-outline-light" onclick = "tosearch(0)" type = "submit">Submit</button>
+{% endblock %}
+
+{% block n1 %}
+{% if user.isadmin == 1 %}
+    <a class = "btn btn-outline-light" href = "/admin_dashboard/{{ user.userid }}">Dashboard</a>
+{% else %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/read_product">Home</a>
+{% endif %}
+{% endblock %}
+
+{% block n2 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/category">Category</a>
+{% endblock %}
+
+{% block n3 %}
+{% if user.isadmin == 0 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/cart">Cart</a>
+{% endif %}
+{% endblock %}
+
+{% block n4 %}
+{% if user.isadmin == 0 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/profile">Profile</a>
+{% endif %}
+{% endblock %}
+
+{% block l %}
+<a class = "btn btn-danger" href = "/logout">Logout</a>
+{% endblock %}
+
+{% block body %}
+{% if product %}
+<div class = "p-4">
+    {% for pro in product %}
+    <div class = "p-4" style = "border-style: solid; border-width: 3px;">
+        <div class = "row">
+        <a class = "text-primary h1" style = "text-decoration: none;" href = "/{{ user.userid }}/product/{{ pro.productid }}">{{ pro.productname }}</a><br>
+        <div class = "col-4 p-3">
+            <div class = "card" style = "border-style: solid; border-width: 3px; width: 18rem;">
+                <div class = "card-body p-4">
+                    <center>
+                    <a class = "card-title h5" style = "text-decoration: none" href = "/{{ user.userid }}/product/{{ pro.productid }}">{{ pro.productname }}</a><br>
+                    <a class = "card-subtitle mb-2 text-muted" href = "/{{user.userid}}/category/{{ pro.category_.categoryid }}/product">{{ pro.category_.categoryname }}</a><br><br>
+                    <p class = "card-text"><b>Price</b> - {{ pro.price }} / {{ pro.unit }}</p>
+                    <p class = "card-text">Only <b>{{ pro.quantity }}</b> {{ pro.unit }} left</p><br>
+                    <a class = "card-link btn btn-outline-primary" href = "/{{ user.userid }}/product/{{ pro.productid }}">View More</a>
+                    </center>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div><br>
+    {% endfor %}
+</div>
+<nav class="navbar navbar-expand-lg bg-primary text-light bg-gradient p-2 fixed-bottom">
+    <div class = "navbar-brand text-light">
+        <p class = "h3" style = "position: relative; left: 150px">Advanced Search: &nbsp;&nbsp;&nbsp;&nbsp;</p>
+    </div>
+    <div class = "collapse navbar-collapse">
+        <ul class = "navbar-nav mr-auto">
+            <li class = "nav-item" style = "position: relative; left: 150px">
+                <input class = "form-check-input" name = "sort" type = "radio" id = "asc" onclick = "ascpro()">
+                <label class = "form-check-label h5">Sort by Price Ascending</label>
+            </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class = "nav-item" style = "position: relative; left: 150px">
+                <input class = "form-check-input" name = "sort" type = "radio" id = "dec" onclick = "despro()">
+                <label class = "form-check-label h5">Sort by Price Descending</label>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% else %}
+<div class = "p-4">
+    <p class = "h1 text-primary">No Matching Products. 😁</p>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}FoodFetch{% endblock %}
+
+{% block name %}
+<h2>Welcome {{ user.username }}!!!</h2>
+{% endblock %}
+
+{% block n2 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/category">Category</a>
+{% endblock %}
+
+{% block n3 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/read_product">Products</a>
+{% endblock %}
+
+{% block n4 %}
+    <a class = "btn btn-outline-warning" href = "/{{ user.userid }}/create_product">New Product</a>
+{% endblock %}
+
+{% block n5 %}
+    <a class = "btn btn-outline-warning" href = "/{{ user.userid }}/create_category">New Category</a>
+{% endblock %}
+
+{% block l %}
+<a class = "btn btn-danger" href = "/logout">Logout</a>
+{% endblock %}
+
+{% block body %}
+<img style = "border: solid; position: fixed; left: 10px" src = "{{ url_for('static', filename = 'category.jpg') }}" height = "300px">
+<div style = "position: fixed; top: 85px; left: 585px">
+<div class = "card text-center" style = " float: left; border-style: solid; border-width: 3px; width: 19rem;">
+    <div class = "card-body">
+        <p class = "card-title h5 text-bg-danger">Unavailable Stock</p>
+        {% for i in p %}
+            <br><li class = "card-text"><b>{{ i }}</b></li>
+        {% endfor %}
+    </div>
+</div>
+</div>
+<div style = "position: fixed; top: 85px; left: 930px">
+    <div class = "card text-center" style = " float: left; border-style: solid; border-width: 3px; width: 19rem;">
+        <div class = "card-body">
+            <p class = "card-title h5 text-bg-success">Most Sold Product</p>
+            <a class = "card-text h5" href = "/{{ user.userid }}/product/{{ pp.productid }}" style = "text-decoration: none;">{{ pp.productname }}</a>
+            <p class = "card-text text-muted">{{ max }} {{ pp.unit }}</p>
+            <p class = "card-text"><b>Price</b> - {{ pp.price }} / {{ pp.unit }}</p>
+            <p class = "card-text"><b>Total Revenue</b> - {{ pp.price * max }}</p>
+        </div>
+    </div>
+</div>
+<div style = "position: fixed; top: 410px; left: 85px">
+    <div class = "card text-center" style = " float: left; border-style: solid; border-width: 3px; width: 19rem;">
+        <div class = "card-body">
+            <p class = "card-title h5 text-bg-primary">Statistics</p><br>
+            <p class = "card-text"><b>Number of Users:</b> {{ r[0] }}</p>
+            <p class = "card-text"><b>Number of Products:</b> {{ r[1] }}</p>
+            <p class = "card-text"><b>Number of Categories:</b> {{ r[2] }}</p>
+        </div>
+    </div>
+</div>
+<img style = "border: solid; margin-left: 5px; position: fixed; top: 330px; left: 550px" src = "{{ url_for('static', filename = 'product.jpg') }}" height = "300px">
+{% endblock %}

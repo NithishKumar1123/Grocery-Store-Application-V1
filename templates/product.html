@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}FoodFetch :: Product{% endblock %}
+
+{% block name %}
+<h2>Welcome {{ user.username }}!!!</h2>
+{% endblock %}
+
+{% block search %}
+<input class = "form-control" id = "search" type = "search" size = "15" placeholder = "Search by Product" value = "{{ search }}" required>
+{% endblock %}
+
+{% block button %}
+<button class = "btn btn-outline-light" onclick = "tosearch(0)" type = "submit">Submit</button>
+{% endblock %}
+
+{% block n1 %}
+{% if user.isadmin == 1 %}
+    <a class = "btn btn-outline-light" href = "/admin_dashboard/{{ user.userid }}">Dashboard</a>
+{% else %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/read_product">Home</a>
+{% endif %}
+{% endblock %}
+
+{% block n2 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/category">Category</a>
+{% endblock %}
+
+{% block n3 %}
+{% if user.isadmin == 0 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/cart">Cart</a>
+{% else %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/read_product">Products</a>
+{% endif %}
+{% endblock %}
+
+{% block n4 %}
+{% if user.isadmin == 0 %}
+    <a class = "btn btn-outline-light" href = "/{{ user.userid }}/profile">Profile</a>
+{% endif %}
+{% endblock %}
+
+{% block l %}
+<a class = "btn btn-danger" href = "/logout">Logout</a>
+{% endblock %}
+
+{% block body %}
+{% if product %}
+    <div class = "d-flex justify-content-center p-5">
+    <div class = "card text-center" style = "border-style: solid; border-width: 3px; width: 30rem;">
+        <div class = "card-body p-4">
+            <p class = "card-title h1 text-primary">{{ product.productname | upper }}</p>
+            <a class = "card-subtitle mb-2 text-muted" href = "/{{user.userid}}/category/{{ product.category_.categoryid }}/product">{{ product.category_.categoryname }}</a><br><br>
+            <p class = "card-text"><b>Price</b> - {{ product.price }} / {{ product.unit }}</p>
+            {% if product.quantity == 0 %}
+                <p class = "card-text text-danger"><strong>Out of Stock</strong></p>
+            {% else %}
+                <p class = "card-text">Only <b>{{ product.quantity }}</b> {{ product.unit }} left</p><br>
+            {% endif %}
+            {% if user.isadmin == 1 %}
+                <a class = "btn btn-outline-dark" href = "/{{ user.userid }}/update_product/{{ product.productid }}">Update</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class = "btn btn-outline-danger" href = "/{{ user.userid }}/delete_product/{{ product.productid }}">Delete</a><br>
+            {% else %}
+                {% if cart %}
+                    {% if cart.buy == 0 %}
+                    <a class = "btn btn-outline-warning" href = "/{{ user.userid }}/cart">Go to Cart</a><br>
+                    {% else %}
+                    {% if product.quantity > 0 %}
+                    <form method = "post">
+                        <input class = "form-control" size = "1" type = "text" name = "quantity" placeholder = "Enter the quantity" required><br>
+                        <input class = "btn btn-outline-success" type = "submit" value = "Add to cart">
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                {% else %}
+                {% if product.quantity > 0 %}
+                    <form method = "post">
+                        <input class = "form-control" size = "1" type = "text" name = "quantity" placeholder = "Enter the quantity" required><br>
+                        <input class = "btn btn-outline-success" type = "submit" value = "Add to cart">
+                    </form>
+                {% endif %}
+                {% endif %}
+            {% endif %}<br>
+            <a class = "btn btn-outline-primary" href = "/{{user.userid}}/category/{{ product.category_.categoryid }}/product">{{ product.category_.categoryname }}</a><br><br>
+            {% if user.isadmin == 0 %}
+                <a class = "btn btn-outline-secondary" href = "/{{ user.userid }}/read_product">Go Home</a>
+            {% else %}
+                <a class = "btn btn-outline-secondary" href = "/admin_dashboard/{{ user.userid }}">Dashboard</a> 
+            {% endif %}
+        </div>
+    </div>
+    </div>
+{% endif %}
+{% endblock %}
