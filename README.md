@@ -1,12 +1,12 @@
 # Grocery Store Application
 ## Author
-S Nithish Kumar
-21f1006725
-21f1006725@ds.study.iitm.ac.in
+### S Nithish Kumar
+### 21f1006725
+### 21f1006725@ds.study.iitm.ac.in
 As a diligent and inquisitive student pursuing a dual degree at both IIT and VIT, I have long been fascinated by the intricacies of website development. Fortunately, the Modern Application Development course has provided me with comprehensive insights and valuable hands-on experience in creating and implementing a Grocery Store web application.
 ## Description
 The objective of the Modern Application Development - I project is to develop a robust and user-friendly online grocery shopping platform that enables users to search and purchase groceries categorised for easy navigation providing a seamless and convenient way to shop for groceries online.
-Technologies used
+## Technologies used
 The following Technologies have been used in implementing the web application:
 ### Python
 Python is a programming language which is used for backend development.
